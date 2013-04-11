@@ -19,11 +19,10 @@ filterCorpus :: [String] -> [[String]]
 filterCorpus = let clean = (map toLower . filter isAlpha) in map clean >>> sort >>> group
 
 termFrequency :: [[String]] -> [Freq]
-termFrequency corpus =
-  map (\(x:_) -> (x, (length x))) corpus
+termFrequency = map (\(x:_) -> (x, (length x)))
 
 sortedFrequency :: [Freq] -> [Freq]
-sortedFrequency f = sortBy (compare `on` snd) f
+sortedFrequency = sortBy (compare `on` snd)
 
 sorted :: FilePath -> IO [Freq]
 sorted file = sortedFrequency `liftM` tokenize file
