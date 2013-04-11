@@ -35,10 +35,17 @@ selectTermFrequency t xs =
   [y | (x,y) <- xs, x == t]
 
 -- | Given a document tokenize >> filter >> return frequency
+tokenize :: FilePath -> IO [Freq]
 tokenize document = do
   content <- liftM words $ readFile document
   let freq = termFrequency $ filterCorpus content
   return freq
+
+commonTerms :: FilePath -> Int -> IO [String]
+commonTerms document n = do
+  f <- sorted document
+  let r = map fst $ take n $ reverse f
+  return r
 
 {- Main -}
 
