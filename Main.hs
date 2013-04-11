@@ -33,6 +33,10 @@ selectTermFrequency :: Eq a => a -> [(a, t)] -> [t]
 selectTermFrequency t xs =
   [y | (x,y) <- xs, x == t]
 
+-- Using arrows
+wordCount :: [String] -> [(String, Int)]
+wordCount = map (head &&& length) . group
+
 -- | Given a document tokenize >> filter >> return frequency
 tokenize :: FilePath -> IO [Freq]
 tokenize document = do
