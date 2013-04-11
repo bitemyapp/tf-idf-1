@@ -16,8 +16,7 @@ type Freq = (String, Int)
 
 -- | Clean up the corpus and partition by identity
 filterCorpus :: [String] -> [[String]]
-filterCorpus = let clean = (map toLower . filter isAlpha) in
-                 map clean >>> sort >>> group
+filterCorpus = let clean = (map toLower . filter isAlpha) in map clean >>> sort >>> group
 
 termFrequency :: [[String]] -> [Freq]
 termFrequency corpus =
