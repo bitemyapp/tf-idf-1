@@ -4,13 +4,6 @@
 
 import math
 
-## Test stuff
-
-DOC  = "corpus/document.txt"
-DOC2 = "corpus/document2.txt"
-
-DOC_LIST = [DOC, DOC2]
-
 class Tokenizer:
     @staticmethod
     def tokenize(document):
@@ -57,3 +50,13 @@ class TfIdf:
         """ Returns the tf-idf score """
         return self.tf(word, document) * self.idf(word, documents)
 
+def main():
+
+  doc1  = "corpus/document.txt"
+  doc2  = "corpus/document2.txt"
+  doc_list = [doc1, doc2]
+  tfidf = TfIdf()
+  return tfidf.tf_idf("frequency", doc1, doc_list)
+
+if __name__ == '__main__':
+  main()
