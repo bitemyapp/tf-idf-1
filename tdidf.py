@@ -20,8 +20,6 @@ def tokenize(document):
         tokens = [t.lower() for t in f.read().split()]
         return map(lambda x: removeNonAscii(x), tokens)
 
-def test(): return tokenize(DOC)
-
 def word_frequency(word, tokens):
     """ How many times does a word appear in a document? """
     return tokens.count(word)
