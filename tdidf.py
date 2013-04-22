@@ -34,7 +34,7 @@ def tf(term, document):
     tokens = tokenize(document)
     word_count  = len(tokens)
     term_occurs = word_frequency(term, tokens)
-    return term_occurs / float(word_count)\
+    return term_occurs / float(word_count)
 
 def docs_containing_term(term, documents):
     """ Returns the number of documents that contain a term """
