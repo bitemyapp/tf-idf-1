@@ -11,16 +11,17 @@ DOC2 = "corpus/document2.txt"
 
 DOC_LIST = [DOC, DOC2]
 
-def removeNonAscii(s):
-    """ Remove non ascii chars from a string """
-    return "".join(i for i in s if ord(i)<128)
+class Tokenizer:
+    @staticmethod
+    def tokenize(document):
+        def removeNonAscii(s):
+            """ Remove non ascii chars from a string """
+            return "".join(i for i in s if ord(i)<128)
+        with open(document) as f:
+            tokens = [t.lower() for t in f.read().split()]
+            return map(lambda x: removeNonAscii(x), tokens)
 
-def tokenize(document):
-    with open(document) as f:
-        tokens = [t.lower() for t in f.read().split()]
-        return map(lambda x: removeNonAscii(x), tokens)
-
-class TfIdf(object):
+class TfIdf:
 
     def __init__(self, documents=None):
         self.documents = documents
@@ -30,11 +31,11 @@ class TfIdf(object):
         return tokens.count(word)
 
     def document_term_frequency(self, term, document):
-        tokens = tokenize(document)
+        tokens = Tokenizer.tokenize(document)
         return self.word_frequency(term, tokens)
 
     def tf(self, term, document):
-        tokens = tokenize(document)
+        tokens = Tokenizer.tokenize(document)
         word_count  = len(tokens)
         term_occurs = self.word_frequency(term, tokens)
         return term_occurs / float(word_count)
