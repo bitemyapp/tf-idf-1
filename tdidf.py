@@ -20,35 +20,39 @@ def tokenize(document):
         tokens = [t.lower() for t in f.read().split()]
         return map(lambda x: removeNonAscii(x), tokens)
 
-def word_frequency(word, tokens):
-    """ How many times does a word appear in a document? """
-    return tokens.count(word)
+class TfIdf(object):
 
-def document_term_frequency(term, document):
-    tokens = tokenize(document)
-    return word_frequency(term, tokens)
+    def __init__(self, documents=None):
+        self.documents = documents
 
-def tf(term, document):
-    tokens = tokenize(document)
-    word_count  = len(tokens)
-    term_occurs = word_frequency(term, tokens)
-    return term_occurs / float(word_count)
+    def word_frequency(self, word, tokens):
+        """ How many times does a word appear in a document? """
+        return tokens.count(word)
 
-def docs_containing_term(term, documents):
-    """ Returns the number of documents that contain a term """
-    def term_occurs(term, document):
-      count = document_term_frequency(term, document)
-      if (count > 0):
-          return 1
-      else: return 0
-    occurs = [term_occurs(term, document) for document in documents]
-    return sum(occurs)
+    def document_term_frequency(self, term, document):
+        tokens = tokenize(document)
+        return self.word_frequency(term, tokens)
 
-def idf(term, documents):
-    occurences = docs_containing_term(term, documents)
-    return math.log(len(documents) / occurences)
+    def tf(self, term, document):
+        tokens = tokenize(document)
+        word_count  = len(tokens)
+        term_occurs = self.word_frequency(term, tokens)
+        return term_occurs / float(word_count)
 
-def tf_idf(word, document, documents):
-    """ Returns the tf-idf score """
-    return tf(word, document) * idf(word, documents)
+    def docs_containing_term(self, term, documents):
+        """ Returns the number of documents that contain a term """
+        def term_occurs(term, document):
+            count = self.document_term_frequency(term, document)
+            if (count > 0): return 1
+            else: return 0
+        occurs = [term_occurs(term, d) for d in documents]
+        return sum(occurs)
+
+    def idf(self, term, documents):
+        occurences = self.docs_containing_term(term, documents)
+        return math.log(len(documents) / occurences)
+
+    def tf_idf(self, word, document, documents):
+        """ Returns the tf-idf score """
+        return self.tf(word, document) * self.idf(word, documents)
 
