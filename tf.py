@@ -15,7 +15,6 @@ class Tokenizer:
             return map(lambda x: removeNonAscii(x), tokens)
 
 class TfIdf:
-
     def __init__(self, documents=None):
         self.documents = documents
 
