@@ -56,6 +56,21 @@ class TfIdf:
             and a low document frequency of the term in the whole collection (global parameter) """
         return self.tf(word, document) * self.idf(word, documents)
 
+# Cosine similarity
+
+def dot_product(v1, v2):
+    "Dot product for two vectors"
+    return sum(x*y for x,y in zip(v1, v2))
+
+def norm(a):
+    n = len(a)
+    for i in xrange(n):
+        sum += a[i] * a[i]
+    return math.sqrt(sum)
+
+def cosine_similarity(a, b):
+    return dot(a,b) / (norm(a) * norm(b))
+
 def main():
 
     doc1  = "corpus/document.txt"
