@@ -1,5 +1,8 @@
 module Main 
   ( main 
+  , selectTermFrequency
+  , termFrequency
+  , commonTerms
   ) where
 
 import           Control.Applicative ((<$>), (<*>))
